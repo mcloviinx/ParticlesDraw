@@ -11,7 +11,7 @@ void draw(){
   for (Particle p : particles){
     p.show();
     if (mousePressed) p.updateRandom();
-    else p.update();
+    else p.updateToTarget();
   }
   //saveFrame("/export/frame-####.jpg");
 }

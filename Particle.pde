@@ -15,16 +15,12 @@ class Particle{
     ellipse(pos.x, pos.y, pr, pr);
     line(pos.x, pos.y, tar.x, tar.y);
   }
-  void update(PVector mouse){
+  void updateToMouse(PVector mouse){
     PVector target = PVector.sub(mouse, pos);
     target.normalize().div(2);
-    acc.add(target);
-    vel.add(acc);
-    //vel.limit(maxVel);
-    pos.add(vel);
-    acc.mult(0);
+    addForce(target);
   }
-  void update(){
+  void updateToTarget(){
     PVector desired = PVector.sub(tar, pos);
     float d = desired.mag();
     desired.normalize();
@@ -36,17 +32,19 @@ class Particle{
     }
     PVector steer = PVector.sub(desired, vel);
     steer.limit(maxFor);
-    acc.add(steer);
-    vel.add(acc);
-    pos.add(vel);
-    acc.mult(0);
+    addForce(steer);
   }
   void updateRandom(){
-    acc = PVector.random2D();
-    acc.div(10);
+    PVector accRandom = PVector.random2D();
+    accRandom.div(10);
+    addForce(accRandom);
+  }
+  void addForce(PVector force){
+    acc.add(force);
     vel.add(acc);
     vel.limit(maxVel);
     pos.add(vel);
+    acc.mult(0);
   }
   Particle getNormatized(int size, int gSize){
     PVector normatized = PVector.div(tar, size);
