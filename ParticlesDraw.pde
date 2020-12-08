@@ -39,7 +39,7 @@ ArrayList<Particle> getParticles(PImage img){
       }
       if (pixelCount > 0){
         Particle part = new Particle(sx / 2 + vx, sy / 2 + vy, map(pixelCount, 1, totalPixels, 1, sx - 1));
-        Particle partNormatized = part.getNormatized(width, vx);
+        Particle partNormatized = part.getNormatized(width, sx);
         output += "particles.push(new Particle("+partNormatized.tar.x+" * wSize, "+partNormatized.tar.y+" * wSize, "+partNormatized.pr+" * gSize));\n";
         p.add(part);
       }
